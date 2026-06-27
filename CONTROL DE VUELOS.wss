@@ -1,0 +1,656 @@
+<site version="3.0"><css/><components/><page id="p18501828" pageindex="0" name="index" pp="1" cp="1"><body generator="0" bgsoundloop="-1" align="1" charset="0" charsetcode="" effectstyle0="0" effectduration0="0" effectstyle1="0" effectduration1="0" effectstyle2="0" effectduration2="0" effectstyle3="0" effectduration3="0" imagetoolbar="0" enableprotect="0" title="FORMATO VUELOS ATENDIDOS" author="RAUL CASTILLO" bgoutput="" bgsoutput="" bgp="1" bsp="1"><Component type="12" id="html1" zorder="0" filename="html21433906" script="
+&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;es&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Control de Vuelos Atendidos&lt;/title&gt;
+    &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js&quot;&gt;&lt;/script&gt;
+    &lt;style&gt;
+        * {
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace, Arial;
+            font-size: 9px; /* Todo el texto base reducido a tamano 9 */
+        }
+        body {
+            background-color: #f0f2f5;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        /* Contenedor principal que se convertira en imagen */
+        .form-container {
+            background-color: #fff;
+            width: 800px;
+            border: 3px solid #002060;
+            padding: 15px;
+            position: relative;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #000;
+            padding-bottom: 3px;
+            margin-bottom: 8px;
+        }
+        .logo {
+            font-weight: bold;
+            color: #002060;
+            font-size: 13px;
+        }
+        .title {
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+            flex-grow: 1;
+            font-family: Arial, sans-serif;
+        }
+        .row {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 6px;
+            align-items: center;
+        }
+        .field {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .field label {
+            font-weight: bold;
+            white-space: nowrap;
+            font-size: 9px;
+        }
+        input[type=&quot;text&quot;], select {
+            border: none;
+            border-bottom: 1px dashed #666;
+            padding: 1px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 10px;
+            text-transform: uppercase;
+            background: transparent;
+        }
+        select {
+            cursor: pointer;
+            outline: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+        input:focus, select:focus {
+            outline: none;
+            border-bottom: 1px solid #002060;
+        }
+        .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 8px; }
+        .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; }
+
+        .section-title {
+            background-color: #fff;
+            text-align: center;
+            font-weight: bold;
+            border: 2px solid #000;
+            padding: 3px;
+            margin-top: 10px;
+            margin-bottom: 0;
+            text-transform: uppercase;
+            font-family: Arial, sans-serif;
+            font-size: 9px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 4px;
+        }
+        table, th, td {
+            border: 1px solid #000;
+        }
+        th {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            font-size: 9px;
+        }
+        th, td {
+            padding: 2px 4px;
+            text-align: left;
+            height: 20px;
+            font-size: 9px;
+        }
+        .checkbox-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+            border: 1px solid #000;
+            padding: 1px 3px;
+            background: #fff;
+            font-weight: bold;
+            font-size: 8px;
+            cursor: pointer;
+        }
+        .checkbox-box input {
+            margin: 0;
+            width: 10px;
+            height: 10px;
+        }
+        .incidencias-container {
+            border: 1px solid #000;
+            padding: 6px;
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 5px;
+            margin-bottom: 8px;
+        }
+        .incidencia-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 9px;
+        }
+        .incidencia-item span {
+            font-size: 9px;
+        }
+        .observaciones-container {
+            border: 2px solid #000;
+            padding: 8px;
+            display: flex;
+            gap: 15px;
+            margin-top: 8px;
+        }
+        .obs-column {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            width: 15%;
+        }
+        .obs-column span {
+            font-size: 9px;
+        }
+        .obs-line {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .obs-line span { width: 12px; font-weight: bold; font-size: 9px; }
+        .obs-line input { border: none; border-bottom: 1px solid #000; width: 100%; text-align: center; font-size: 10px; }
+        .obs-text {
+            width: 70%;
+            display: flex;
+            flex-direction: column;
+        }
+        .obs-text span {
+            font-size: 9px;
+        }
+        .obs-text textarea {
+            width: 100%;
+            flex-grow: 1;
+            min-height: 70px;
+            border: 1px solid #000;
+            resize: none;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 4px;
+            font-weight: bold;
+            font-size: 10px;
+        }
+        .footer-signatures {
+            margin-top: 15px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        .sig-field {
+            display: flex;
+            margin-bottom: 6px;
+            align-items: flex-end;
+        }
+        .sig-field label { font-weight: bold; white-space: nowrap; font-size: 9px; }
+        .sig-field input { border: none; border-bottom: 1px solid #000; width: 100%; font-size: 10px; }
+        .doc-code {
+            position: absolute;
+            bottom: 4px;
+            right: 8px;
+            font-size: 8px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+        }
+
+        /* Boton de Generar Imagen fuera del formulario */
+        .btn-capture {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #002060;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: background 0.2s;
+            font-family: Arial, sans-serif;
+        }
+        .btn-capture:hover {
+            background-color: #001133;
+        }
+        /* Estilo especifico para centrar el dropdown de incidencia */
+        .inc-select {
+            width: 100%;
+            text-align: center;
+        }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;div class=&quot;form-container&quot; id=&quot;manifiesto-form&quot;&gt;
+    &lt;div class=&quot;header&quot;&gt;
+        &lt;div class=&quot;logo&quot;&gt;? AEROMEXICO&lt;/div&gt;
+        &lt;div class=&quot;title&quot;&gt;&quot;CONTROL DE VUELOS ATENDIDOS&quot;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;row&quot; style=&quot;display: grid; grid-template-columns: 2fr 1fr;&quot;&gt;
+        &lt;div class=&quot;field&quot;&gt;
+            &lt;label&gt;MATRICULA:&lt;/label&gt;
+            &lt;input type=&quot;text&quot; style=&quot;width: 150px;&quot;&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;field&quot;&gt;
+            &lt;label&gt;FECHA:&lt;/label&gt;
+            &lt;input type=&quot;text&quot; style=&quot;width: 30px; text-align: center;&quot; placeholder=&quot;DD&quot;&gt; /
+            &lt;input type=&quot;text&quot; style=&quot;width: 30px; text-align: center;&quot; placeholder=&quot;MM&quot;&gt; /
+            &lt;input type=&quot;text&quot; style=&quot;width: 40px; text-align: center;&quot; placeholder=&quot;AA&quot;&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div style=&quot;border: 2px solid #000; padding: 5px; margin-bottom: 8px;&quot;&gt;
+        &lt;div class=&quot;grid-3&quot; style=&quot;margin-bottom: 5px;&quot;&gt;
+            &lt;div class=&quot;field&quot;&gt;
+                &lt;label&gt;VUELO:&lt;/label&gt;
+                &lt;input type=&quot;text&quot; style=&quot;width: 60px;&quot;&gt;
+                &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; LL&lt;/span&gt;
+                &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SAL&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;field&quot;&gt;&lt;label&gt;ORIGEN/DESTINO:&lt;/label&gt;&lt;input type=&quot;text&quot; style=&quot;width: 100%;&quot;&gt;&lt;/div&gt;
+            &lt;div class=&quot;field&quot;&gt;&lt;label&gt;POSICION:&lt;/label&gt;&lt;input type=&quot;text&quot; style=&quot;width: 100%;&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;grid-3&quot; style=&quot;margin-bottom: 5px;&quot;&gt;
+            &lt;div class=&quot;field&quot;&gt;&lt;label&gt;HORA DE LLEGADA:&lt;/label&gt;&lt;input type=&quot;text&quot; style=&quot;width: 100%;&quot;&gt;&lt;/div&gt;
+            &lt;div class=&quot;field&quot;&gt;
+                &lt;label&gt;BRIEFING:&lt;/label&gt;
+                &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt;
+                &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; NO&lt;/span&gt;
+            &lt;/div&gt;
+            &lt;div class=&quot;field&quot;&gt;&lt;label&gt;HORA DE SALIDA:&lt;/label&gt;&lt;input type=&quot;text&quot; style=&quot;width: 100%;&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;grid-3&quot;&gt;
+            &lt;div class=&quot;field&quot;&gt;&lt;label&gt;CANTIDAD ARPEL:&lt;/label&gt;&lt;input type=&quot;text&quot; style=&quot;width: 100%;&quot;&gt;&lt;/div&gt;
+            &lt;div class=&quot;field&quot; style=&quot;grid-column: span 2;&quot;&gt;&lt;label&gt;FOLIOS ARPEL:&lt;/label&gt;&lt;input type=&quot;text&quot; style=&quot;width: 100%;&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;section-title&quot;&gt;Datos del Personal que Atiende el Vuelo de &quot;Llegada&quot;&lt;/div&gt;
+    &lt;table&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th style=&quot;width: 45%;&quot;&gt;NOMBRE&lt;/th&gt;
+                &lt;th style=&quot;width: 15%; text-align: center;&quot;&gt;INCIDENCIA&lt;/th&gt;
+                &lt;th style=&quot;width: 20%; text-align: center;&quot;&gt;TIPO&lt;/th&gt;
+                &lt;th style=&quot;width: 20%;&quot;&gt;No. EMPLEADO&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            &lt;tr&gt;
+                &lt;td&gt;NOMBRE OO: &lt;input type=&quot;text&quot; style=&quot;width: 75%;&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;
+                    &lt;select class=&quot;inc-select&quot;&gt;
+                        &lt;option value=&quot;&quot;&gt;&lt;/option&gt;
+                        &lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;
+                        &lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;
+                        &lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;
+                        &lt;option value=&quot;4&quot;&gt;4&lt;/option&gt;
+                        &lt;option value=&quot;5&quot;&gt;5&lt;/option&gt;
+                        &lt;option value=&quot;6&quot;&gt;6&lt;/option&gt;
+                    &lt;/select&gt;
+                &lt;/td&gt;
+                &lt;td style=&quot;text-align: center;&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; CD&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; CT&lt;/span&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;input type=&quot;text&quot; style=&quot;width: 100%;&quot;&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;td&gt;NOMBRE DEL TG: &lt;select class=&quot;tg-select&quot; style=&quot;width: 65%;&quot;&gt;&lt;/select&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;select class=&quot;inc-select&quot;&gt;&lt;option value=&quot;&quot;&gt;&lt;/option&gt;&lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;&lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;&lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;&lt;option value=&quot;4&quot;&gt;4&lt;/option&gt;&lt;option value=&quot;5&quot;&gt;5&lt;/option&gt;&lt;option value=&quot;6&quot;&gt;6&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;
+                &lt;td style=&quot;text-align: center;&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; CD&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; CT&lt;/span&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;input type=&quot;text&quot; class=&quot;emp-input&quot; style=&quot;width: 100%;&quot;&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;NOMBRE DEL TG: &lt;select class=&quot;tg-select&quot; style=&quot;width: 65%;&quot;&gt;&lt;/select&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;select class=&quot;inc-select&quot;&gt;&lt;option value=&quot;&quot;&gt;&lt;/option&gt;&lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;&lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;&lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;&lt;option value=&quot;4&quot;&gt;4&lt;/option&gt;&lt;option value=&quot;5&quot;&gt;5&lt;/option&gt;&lt;option value=&quot;6&quot;&gt;6&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;
+                &lt;td style=&quot;text-align: center;&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; CD&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; CT&lt;/span&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;input type=&quot;text&quot; class=&quot;emp-input&quot; style=&quot;width: 100%;&quot;&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;NOMBRE DEL TG: &lt;select class=&quot;tg-select&quot; style=&quot;width: 65%;&quot;&gt;&lt;/select&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;select class=&quot;inc-select&quot;&gt;&lt;option value=&quot;&quot;&gt;&lt;/option&gt;&lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;&lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;&lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;&lt;option value=&quot;4&quot;&gt;4&lt;/option&gt;&lt;option value=&quot;5&quot;&gt;5&lt;/option&gt;&lt;option value=&quot;6&quot;&gt;6&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;
+                &lt;td style=&quot;text-align: center;&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; CD&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; CT&lt;/span&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;input type=&quot;text&quot; class=&quot;emp-input&quot; style=&quot;width: 100%;&quot;&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;NOMBRE DEL TG: &lt;select class=&quot;tg-select&quot; style=&quot;width: 65%;&quot;&gt;&lt;/select&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;select class=&quot;inc-select&quot;&gt;&lt;option value=&quot;&quot;&gt;&lt;/option&gt;&lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;&lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;&lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;&lt;option value=&quot;4&quot;&gt;4&lt;/option&gt;&lt;option value=&quot;5&quot;&gt;5&lt;/option&gt;&lt;option value=&quot;6&quot;&gt;6&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;
+                &lt;td style=&quot;text-align: center;&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; CD&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; CT&lt;/span&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;input type=&quot;text&quot; class=&quot;emp-input&quot; style=&quot;width: 100%;&quot;&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;NOMBRE DEL TG: &lt;select class=&quot;tg-select&quot; style=&quot;width: 65%;&quot;&gt;&lt;/select&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;select class=&quot;inc-select&quot;&gt;&lt;option value=&quot;&quot;&gt;&lt;/option&gt;&lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;&lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;&lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;&lt;option value=&quot;4&quot;&gt;4&lt;/option&gt;&lt;option value=&quot;5&quot;&gt;5&lt;/option&gt;&lt;option value=&quot;6&quot;&gt;6&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;
+                &lt;td style=&quot;text-align: center;&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; CD&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; CT&lt;/span&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;input type=&quot;text&quot; class=&quot;emp-input&quot; style=&quot;width: 100%;&quot;&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;NOMBRE DEL TG: &lt;select class=&quot;tg-select&quot; style=&quot;width: 65%;&quot;&gt;&lt;/select&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;select class=&quot;inc-select&quot;&gt;&lt;option value=&quot;&quot;&gt;&lt;/option&gt;&lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;&lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;&lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;&lt;option value=&quot;4&quot;&gt;4&lt;/option&gt;&lt;option value=&quot;5&quot;&gt;5&lt;/option&gt;&lt;option value=&quot;6&quot;&gt;6&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;
+                &lt;td style=&quot;text-align: center;&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; CD&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; CT&lt;/span&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;input type=&quot;text&quot; class=&quot;emp-input&quot; style=&quot;width: 100%;&quot;&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+    &lt;div class=&quot;field&quot; style=&quot;margin-bottom: 8px;&quot;&gt;&lt;label&gt;CLAVE DE LOS GRUPOS ASIGNADOS:&lt;/label&gt;&lt;input type=&quot;text&quot; style=&quot;width: 100%;&quot;&gt;&lt;/div&gt;
+
+    &lt;div class=&quot;section-title&quot;&gt;Datos del Personal que Atiende el Vuelo de &quot;Salida&quot;&lt;/div&gt;
+    &lt;table&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th style=&quot;width: 45%;&quot;&gt;NOMBRE&lt;/th&gt;
+                &lt;th style=&quot;width: 15%; text-align: center;&quot;&gt;INCIDENCIA&lt;/th&gt;
+                &lt;th style=&quot;width: 20%; text-align: center;&quot;&gt;TIPO&lt;/th&gt;
+                &lt;th style=&quot;width: 20%;&quot;&gt;No. EMPLEADO&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            &lt;tr&gt;
+                &lt;td&gt;NOMBRE OO: &lt;input type=&quot;text&quot; style=&quot;width: 75%;&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;select class=&quot;inc-select&quot;&gt;&lt;option value=&quot;&quot;&gt;&lt;/option&gt;&lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;&lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;&lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;&lt;option value=&quot;4&quot;&gt;4&lt;/option&gt;&lt;option value=&quot;5&quot;&gt;5&lt;/option&gt;&lt;option value=&quot;6&quot;&gt;6&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;
+                &lt;td style=&quot;text-align: center;&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; CD&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; CT&lt;/span&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;input type=&quot;text&quot; style=&quot;width: 100%;&quot;&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+
+            &lt;tr&gt;
+                &lt;td&gt;NOMBRE DEL TG: &lt;select class=&quot;tg-select&quot; style=&quot;width: 65%;&quot;&gt;&lt;/select&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;select class=&quot;inc-select&quot;&gt;&lt;option value=&quot;&quot;&gt;&lt;/option&gt;&lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;&lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;&lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;&lt;option value=&quot;4&quot;&gt;4&lt;/option&gt;&lt;option value=&quot;5&quot;&gt;5&lt;/option&gt;&lt;option value=&quot;6&quot;&gt;6&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;
+                &lt;td style=&quot;text-align: center;&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; CD&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; CT&lt;/span&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;input type=&quot;text&quot; class=&quot;emp-input&quot; style=&quot;width: 100%;&quot;&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;NOMBRE DEL TG: &lt;select class=&quot;tg-select&quot; style=&quot;width: 65%;&quot;&gt;&lt;/select&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;select class=&quot;inc-select&quot;&gt;&lt;option value=&quot;&quot;&gt;&lt;/option&gt;&lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;&lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;&lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;&lt;option value=&quot;4&quot;&gt;4&lt;/option&gt;&lt;option value=&quot;5&quot;&gt;5&lt;/option&gt;&lt;option value=&quot;6&quot;&gt;6&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;
+                &lt;td style=&quot;text-align: center;&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; CD&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; CT&lt;/span&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;input type=&quot;text&quot; class=&quot;emp-input&quot; style=&quot;width: 100%;&quot;&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;NOMBRE DEL TG: &lt;select class=&quot;tg-select&quot; style=&quot;width: 65%;&quot;&gt;&lt;/select&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;select class=&quot;inc-select&quot;&gt;&lt;option value=&quot;&quot;&gt;&lt;/option&gt;&lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;&lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;&lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;&lt;option value=&quot;4&quot;&gt;4&lt;/option&gt;&lt;option value=&quot;5&quot;&gt;5&lt;/option&gt;&lt;option value=&quot;6&quot;&gt;6&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;
+                &lt;td style=&quot;text-align: center;&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; CD&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; CT&lt;/span&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;input type=&quot;text&quot; class=&quot;emp-input&quot; style=&quot;width: 100%;&quot;&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;NOMBRE DEL TG: &lt;select class=&quot;tg-select&quot; style=&quot;width: 65%;&quot;&gt;&lt;/select&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;select class=&quot;inc-select&quot;&gt;&lt;option value=&quot;&quot;&gt;&lt;/option&gt;&lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;&lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;&lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;&lt;option value=&quot;4&quot;&gt;4&lt;/option&gt;&lt;option value=&quot;5&quot;&gt;5&lt;/option&gt;&lt;option value=&quot;6&quot;&gt;6&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;
+                &lt;td style=&quot;text-align: center;&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; CD&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; CT&lt;/span&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;input type=&quot;text&quot; class=&quot;emp-input&quot; style=&quot;width: 100%;&quot;&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;NOMBRE DEL TG: &lt;select class=&quot;tg-select&quot; style=&quot;width: 65%;&quot;&gt;&lt;/select&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;select class=&quot;inc-select&quot;&gt;&lt;option value=&quot;&quot;&gt;&lt;/option&gt;&lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;&lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;&lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;&lt;option value=&quot;4&quot;&gt;4&lt;/option&gt;&lt;option value=&quot;5&quot;&gt;5&lt;/option&gt;&lt;option value=&quot;6&quot;&gt;6&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;
+                &lt;td style=&quot;text-align: center;&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; CD&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; CT&lt;/span&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;input type=&quot;text&quot; class=&quot;emp-input&quot; style=&quot;width: 100%;&quot;&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;NOMBRE DEL TG: &lt;select class=&quot;tg-select&quot; style=&quot;width: 65%;&quot;&gt;&lt;/select&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;select class=&quot;inc-select&quot;&gt;&lt;option value=&quot;&quot;&gt;&lt;/option&gt;&lt;option value=&quot;1&quot;&gt;1&lt;/option&gt;&lt;option value=&quot;2&quot;&gt;2&lt;/option&gt;&lt;option value=&quot;3&quot;&gt;3&lt;/option&gt;&lt;option value=&quot;4&quot;&gt;4&lt;/option&gt;&lt;option value=&quot;5&quot;&gt;5&lt;/option&gt;&lt;option value=&quot;6&quot;&gt;6&lt;/option&gt;&lt;/select&gt;&lt;/td&gt;
+                &lt;td style=&quot;text-align: center;&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; CD&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; CT&lt;/span&gt;&lt;/td&gt;
+                &lt;td&gt;&lt;input type=&quot;text&quot; class=&quot;emp-input&quot; style=&quot;width: 100%;&quot;&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+    &lt;div class=&quot;field&quot; style=&quot;margin-bottom: 8px;&quot;&gt;&lt;label&gt;CLAVE DE LOS GRUPOS ASIGNADOS:&lt;/label&gt;&lt;input type=&quot;text&quot; style=&quot;width: 100%;&quot;&gt;&lt;/div&gt;
+
+    &lt;div class=&quot;section-title&quot;&gt;Incidencias en la Operacion&lt;/div&gt;
+    &lt;div class=&quot;incidencias-container&quot;&gt;
+        &lt;div class=&quot;incidencia-item&quot;&gt;&lt;span&gt;1.- SIN GUANTES&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;incidencia-item&quot;&gt;&lt;span&gt;2.- NO BAJA LA LONA / RET EQ COMPARTIMENTO&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;incidencia-item&quot;&gt;&lt;span&gt;3.- NO PERMITE LA REVISION&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;incidencia-item&quot;&gt;&lt;span&gt;4.- DANO AL EQ&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;incidencia-item&quot;&gt;&lt;span&gt;5.- VIOLACION AL EQ&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;incidencia-item&quot;&gt;&lt;span&gt;6.- AGRESION AL PERSONAL&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;section-title&quot;&gt;Incidencias con el Equipaje&lt;/div&gt;
+    &lt;table&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th&gt;No. TAG&lt;/th&gt;
+                &lt;th&gt;No. CONTROL&lt;/th&gt;
+                &lt;th&gt;CLAVE&lt;/th&gt;
+                &lt;th style=&quot;text-align: center; width: 15%;&quot;&gt;BOLSA&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            &lt;tr&gt;
+                &lt;td&gt;No. TAG: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;No. CONTROL: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;CLAVE: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td style=&quot;text-align: center;&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; NO&lt;/span&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;No. TAG: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;No. CONTROL: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;CLAVE: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td style=&quot;text-align: center;&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; NO&lt;/span&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;No. TAG: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;No. CONTROL: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;CLAVE: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td style=&quot;text-align: center;&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; NO&lt;/span&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;No. TAG: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;No. CONTROL: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;CLAVE: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td style=&quot;text-align: center;&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; NO&lt;/span&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;No. TAG: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;No. CONTROL: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;CLAVE: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td style=&quot;text-align: center;&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; NO&lt;/span&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;No. TAG: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;No. CONTROL: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;CLAVE: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td style=&quot;text-align: center;&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; NO&lt;/span&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;No. TAG: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;No. CONTROL: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;CLAVE: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td style=&quot;text-align: center;&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; NO&lt;/span&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;No. TAG: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;No. CONTROL: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;CLAVE: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td style=&quot;text-align: center;&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; NO&lt;/span&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;No. TAG: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;No. CONTROL: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;CLAVE: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td style=&quot;text-align: center;&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; NO&lt;/span&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+            &lt;tr&gt;
+                &lt;td&gt;No. TAG: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;No. CONTROL: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td&gt;CLAVE: &lt;input type=&quot;text&quot; style=&quot;width: 65%;&quot;&gt;&lt;/td&gt;
+                &lt;td style=&quot;text-align: center;&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; NO&lt;/span&gt;&lt;/td&gt;
+            &lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+
+    &lt;div class=&quot;incidencias-container&quot; style=&quot;grid-template-columns: repeat(2, 1fr);&quot;&gt;
+        &lt;div class=&quot;incidencia-item&quot;&gt;&lt;span&gt;1.- DANADO XQ EXT (ROTO)&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;incidencia-item&quot;&gt;&lt;span&gt;2.- DANADO XQ EXT (SIN LLANTAS)&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;incidencia-item&quot;&gt;&lt;span&gt;3.- CIERRE ROTO&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;incidencia-item&quot;&gt;&lt;span&gt;4.- VIOLACION AL EQ&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;observaciones-container&quot;&gt;
+        &lt;div class=&quot;obs-column&quot;&gt;
+            &lt;span style=&quot;font-weight: bold; text-align: center; font-family: Arial;&quot;&gt;CD&lt;/span&gt;
+            &lt;div class=&quot;obs-line&quot;&gt;&lt;span&gt;A&lt;/span&gt;&lt;input type=&quot;text&quot;&gt;&lt;/div&gt;
+            &lt;div class=&quot;obs-line&quot;&gt;&lt;span&gt;I&lt;/span&gt;&lt;input type=&quot;text&quot;&gt;&lt;/div&gt;
+            &lt;div class=&quot;obs-line&quot;&gt;&lt;span&gt;F&lt;/span&gt;&lt;input type=&quot;text&quot;&gt;&lt;/div&gt;
+            &lt;div class=&quot;obs-line&quot;&gt;&lt;span&gt;C&lt;/span&gt;&lt;input type=&quot;text&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;obs-column&quot;&gt;
+            &lt;span style=&quot;font-weight: bold; text-align: center; font-family: Arial;&quot;&gt;CT&lt;/span&gt;
+            &lt;div class=&quot;obs-line&quot;&gt;&lt;span&gt;A&lt;/span&gt;&lt;input type=&quot;text&quot;&gt;&lt;/div&gt;
+            &lt;div class=&quot;obs-line&quot;&gt;&lt;span&gt;I&lt;/span&gt;&lt;input type=&quot;text&quot;&gt;&lt;/div&gt;
+            &lt;div class=&quot;obs-line&quot;&gt;&lt;span&gt;F&lt;/span&gt;&lt;input type=&quot;text&quot;&gt;&lt;/div&gt;
+            &lt;div class=&quot;obs-line&quot;&gt;&lt;span&gt;C&lt;/span&gt;&lt;input type=&quot;text&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;obs-text&quot;&gt;
+            &lt;span style=&quot;font-weight: bold; font-family: Arial;&quot;&gt;OBSERVACIONES:&lt;/span&gt;
+            &lt;textarea&gt;&lt;/textarea&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;grid-4&quot; style=&quot;margin-top: 8px; border: 1px solid #000; padding: 5px;&quot;&gt;
+        &lt;div class=&quot;field&quot;&gt;&lt;span&gt;A ABRE&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;field&quot;&gt;&lt;span&gt;I INICIA&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;field&quot;&gt;&lt;span&gt;F FINALIZA&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;field&quot;&gt;&lt;span&gt;C CIERRA&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;footer-signatures&quot;&gt;
+        &lt;div&gt;
+            &lt;div class=&quot;sig-field&quot;&gt;&lt;label&gt;NOMBRE DEL GUARDIA:&lt;/label&gt;&lt;input type=&quot;text&quot;&gt;&lt;/div&gt;
+            &lt;div class=&quot;sig-field&quot;&gt;&lt;label&gt;NOMBRE DEL GUARDIA:&lt;/label&gt;&lt;input type=&quot;text&quot;&gt;&lt;/div&gt;
+            &lt;div class=&quot;sig-field&quot;&gt;&lt;label&gt;NOMBRE DEL SUPERVISOR:&lt;/label&gt;&lt;input type=&quot;text&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+            &lt;div class=&quot;sig-field&quot;&gt;&lt;label&gt;FIRMA:&lt;/label&gt;&lt;input type=&quot;text&quot;&gt;&lt;/div&gt;
+            &lt;div class=&quot;sig-field&quot;&gt;&lt;label&gt;FIRMA:&lt;/label&gt;&lt;input type=&quot;text&quot;&gt;&lt;/div&gt;
+            &lt;div class=&quot;sig-field&quot;&gt;&lt;label&gt;FIRMA:&lt;/label&gt;&lt;input type=&quot;text&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;doc-code&quot;&gt;FISO-AM-001 A&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;button class=&quot;btn-capture&quot; id=&quot;download-btn&quot;&gt;?? Generar Imagen para Enviar&lt;/button&gt;
+
+&lt;script&gt;
+    // Base de datos de empleados
+    const empleadosData = [
+        { name: &quot;NAVARRO CUEVAS GILBERTO GUILLERMO&quot;, id: &quot;30027165&quot; },
+        { name: &quot;RODRIGUEZ BENAVENTE ANTULIO RAFAEL&quot;, id: &quot;30059307&quot; },
+        { name: &quot;ROJAS CHAVARRIA MIGUEL ANGEL&quot;, id: &quot;30027169&quot; },
+        { name: &quot;CORNEJO GARCIA FRANCISCO&quot;, id: &quot;30027171&quot; },
+        { name: &quot;PINA MORENO AGUSTIN&quot;, id: &quot;30027172&quot; },
+        { name: &quot;AGUILAR DE LA TORRE ALBERTO&quot;, id: &quot;30027186&quot; },
+        { name: &quot;SAMANIEGO RIOS ANTONIO&quot;, id: &quot;30027188&quot; },
+        { name: &quot;GARCIA SALINAS JORGE LUIS&quot;, id: &quot;30027198&quot; },
+        { name: &quot;GALLEGOS MONSIVAIS CAMILO&quot;, id: &quot;30027206&quot; },
+        { name: &quot;PALACIOS JAUREGUI JUAN DANIEL&quot;, id: &quot;30027208&quot; },
+        { name: &quot;GALVAN MURO LUIS GUILLERMO&quot;, id: &quot;30062457&quot; },
+        { name: &quot;ALVARADO ANDRADE JOSE RICARDO&quot;, id: &quot;30063622&quot; },
+        { name: &quot;AVILA SIFUENTES ELBIA YOLANDA&quot;, id: &quot;30073246&quot; },
+        { name: &quot;VELAZQUEZ SIFUENTES GERARDO OBEDTH&quot;, id: &quot;30074791&quot; },
+        { name: &quot;ZAPATA GARCIA ANGEL ARATH&quot;, id: &quot;30075612&quot; },
+        { name: &quot;VALENZUELA MARTINEZ JOEL IVAN&quot;, id: &quot;30076676&quot; },
+        { name: &quot;PERALTA TORRES ANGEL GABRIEL&quot;, id: &quot;30084628&quot; },
+        { name: &quot;RIESCO MUNETONES JESUS ALFREDO&quot;, id: &quot;30085534&quot; },
+        { name: &quot;RIVERO SOTO JOSE ALEJANDRO&quot;, id: &quot;30085053&quot; },
+        { name: &quot;RUELAS RIVERA JONATHAN MAXIMILIANO&quot;, id: &quot;30085926&quot; },
+        { name: &quot;CERVANTES ORONA JESUS MANUEL&quot;, id: &quot;30085927&quot; },
+        { name: &quot;AGUILAR CALVILLO JORGE&quot;, id: &quot;30027168&quot; },
+        { name: &quot;MARTINEZ MONTOYA JUAN EDUARDO&quot;, id: &quot;30027189&quot; },
+        { name: &quot;MORA GALVAN RITO ANTONIO&quot;, id: &quot;30090376&quot; },
+        { name: &quot;HERNANDEZ RODRIGUEZ JUAN ALBERTO&quot;, id: &quot;30092220&quot; },
+        { name: &quot;AGUILAR DE LA TORRE JORGE&quot;, id: &quot;30037655&quot; },
+        { name: &quot;NINO MARTINEZ JUAN MANUEL&quot;, id: &quot;30027166&quot; },
+        { name: &quot;MORA GALVAN RAFAEL GABRIEL&quot;, id: &quot;30096220&quot; },
+        { name: &quot;VELAZQUEZ DIEGO&quot;, id: &quot;30005228&quot; },
+        { name: &quot;VELAZQUEZ GONZALEZ JUVENAL&quot;, id: &quot;30027180&quot; },
+        { name: &quot;SUAREZ CARDENAS GABRIELA JAQUELINE&quot;, id: &quot;30096880&quot; },
+        { name: &quot;LUNA AGUINAGA ALAN ALEJANDRO&quot;, id: &quot;30096883&quot; },
+        { name: &quot;ORDAZ SERNA JESUS IVAN&quot;, id: &quot;30096882&quot; },
+        { name: &quot;SERNA RAMIREZ SOSA ISAIAS&quot;, id: &quot;30097537&quot; },
+        { name: &quot;MIRELES SALAS CHRISTOPHER DANIEL&quot;, id: &quot;30097538&quot; }
+    ];
+
+    // ORDENAR ALFABETICAMENTE EL ARRAY DE EMPLEADOS POR EL CAMPO 'name'
+    empleadosData.sort((a, b) =&gt; a.name.localeCompare(b.name, 'es', { sensitivity: 'base' }));
+
+    // Poblamos dinamicamente todos los selectores de la clase 'tg-select' ya ordenados
+    document.querySelectorAll('.tg-select').forEach(selectElement =&gt; {
+        let defaultOption = document.createElement('option');
+        defaultOption.value = &quot;&quot;;
+        defaultOption.textContent = &quot;-- SELECCIONE --&quot;;
+        selectElement.appendChild(defaultOption);
+
+        empleadosData.forEach(emp =&gt; {
+            let option = document.createElement('option');
+            option.value = emp.id;
+            option.textContent = emp.name;
+            selectElement.appendChild(option);
+        });
+
+        selectElement.addEventListener('change', function() {
+            const parentRow = this.closest('tr');
+            const empInput = parentRow.querySelector('.emp-input');
+            if (empInput) {
+                empInput.value = this.value;
+            }
+        });
+    });
+
+    // Captura y exportacion del formulario a imagen png
+    document.getElementById('download-btn').addEventListener('click', function () {
+        const formElement = document.getElementById('manifiesto-form');
+
+        html2canvas(formElement, {
+            scale: 2,
+            useCORS: true,
+            onclone: (clonedDoc) =&gt; {
+                const inputs = formElement.querySelectorAll('input[type=&quot;text&quot;], textarea');
+                const clonedInputs = clonedDoc.querySelectorAll('input[type=&quot;text&quot;], textarea');
+                inputs.forEach((input, index) =&gt; {
+                    if(clonedInputs[index]) {
+                        clonedInputs[index].value = input.value;
+                    }
+                });
+
+                const selects = formElement.querySelectorAll('select');
+                const clonedSelects = clonedDoc.querySelectorAll('select');
+                selects.forEach((select, index) =&gt; {
+                    if(clonedSelects[index]) {
+                        clonedSelects[index].value = select.value;
+                    }
+                });
+            }
+        }).then(canvas =&gt; {
+            const link = document.createElement('a');
+            link.download = 'Control_Vuelos_Atendidos.png';
+            link.href = canvas.toDataURL('image/png');
+            link.click();
+        });
+    });
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+
+```" width="816" height="1322" left="0" top="0" selected="1" fp="1" lp="1"/><Component type="3" id="image1" zorder="1" filename="image23465343" width="26" height="19" originwidth="1200" originheight="795" src="WSB://images\paste2.jpg" previewfile="WSB://images\paste2.jpg" left="7" top="13" thumbname="thumb31343218" resamplename="img31343234" exportfilename="images/paste2.jpg" fp="1" lp="1"/></body></page></site>
