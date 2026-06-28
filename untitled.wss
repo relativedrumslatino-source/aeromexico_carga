@@ -1,0 +1,530 @@
+<site version="3.0"><css/><components/><page id="p1270625" pageindex="0" name="index" pp="1" cp="1"><body generator="0" bgsoundloop="-1" align="1" charset="0" charsetcode="ISO-8859-1" effectstyle0="0" effectduration0="0" effectstyle1="0" effectduration1="0" effectstyle2="0" effectduration2="0" effectstyle3="0" effectduration3="0" imagetoolbar="0" enableprotect="0" bgoutput="" bgsoutput="" bgp="1" bsp="1"><Component type="12" id="html1" zorder="0" filename="html3495437" script="&lt;!DOCTYPE html&gt;
+&lt;html lang=&quot;es&quot;&gt;
+&lt;head&gt;
+    &lt;meta charset=&quot;UTF-8&quot;&gt;
+    &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1.0&quot;&gt;
+    &lt;title&gt;Registro de Equipos y Carga&lt;/title&gt;
+    &lt;script src=&quot;https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js&quot;&gt;&lt;/script&gt;
+    &lt;style&gt;
+        * {
+            box-sizing: border-box;
+            font-family: 'Courier New', Courier, monospace, Arial;
+            font-size: 9px;
+        }
+        body {
+            background-color: #f0f2f5;
+            margin: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .form-container {
+            background-color: #fff;
+            width: 800px;
+            border: 3px solid #002060;
+            padding: 15px;
+            position: relative;
+        }
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 2px solid #000;
+            padding-bottom: 3px;
+            margin-bottom: 10px;
+        }
+        .logo {
+            font-weight: bold;
+            color: #002060;
+            font-size: 13px;
+        }
+        .title {
+            font-size: 12px;
+            font-weight: bold;
+            text-align: center;
+            flex-grow: 1;
+            font-family: Arial, sans-serif;
+        }
+        .row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 8px;
+            align-items: center;
+        }
+        .field {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .field label {
+            font-weight: bold;
+            white-space: nowrap;
+            font-size: 9px;
+        }
+
+        /* Asegura texto NEGRO en cualquier dispositivo movil */
+        input[type=&quot;text&quot;], input[type=&quot;time&quot;] {
+            border: none;
+            border-bottom: 1px dashed #666;
+            padding: 1px 3px;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            font-size: 10px;
+            text-transform: uppercase;
+            background: transparent;
+            width: 100%;
+            color: #000000 !important;
+            -webkit-text-fill-color: #000000 !important; /* Fuerza el negro en iPhone/Safari movil */
+        }
+        input[type=&quot;time&quot;], .auto-time {
+            text-transform: none;
+            text-align: center;
+            cursor: pointer;
+        }
+        input:focus {
+            outline: none;
+            border-bottom: 1px solid #002060;
+        }
+
+        .section-title {
+            text-align: center;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+            font-size: 10px;
+            margin-top: 8px;
+            margin-bottom: 2px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 8px;
+        }
+        table, th, td {
+            border: 1px solid #000;
+        }
+        th {
+            font-family: Arial, sans-serif;
+            font-size: 9px;
+            text-align: center;
+            padding: 2px;
+        }
+        .bg-grey {
+            background-color: #d9d9d9;
+        }
+        td {
+            padding: 2px 4px;
+            text-align: left;
+            height: 20px;
+            vertical-align: middle;
+        }
+
+        .checkbox-box {
+            display: inline-flex;
+            align-items: center;
+            gap: 2px;
+            border: 1px solid #000;
+            padding: 1px 3px;
+            background: #fff;
+            font-weight: bold;
+            font-size: 8px;
+            cursor: pointer;
+        }
+        .checkbox-box input {
+            margin: 0;
+            width: 10px;
+            height: 10px;
+        }
+
+        /* Contenedor especial para la seccion cancelada con una gran X */
+        .cancelled-section {
+            position: relative;
+            width: 100%;
+        }
+        .cancelled-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10;
+        }
+
+        /* Bloque Observaciones Inferior */
+        .observaciones-container {
+            border: 2px solid #000;
+            padding: 8px;
+            display: flex;
+            gap: 15px;
+            margin-top: 8px;
+        }
+        .obs-column {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            width: 25%;
+        }
+        .obs-line {
+            display: flex;
+            align-items: center;
+            gap: 4px;
+        }
+        .obs-line span { width: 12px; font-weight: bold; font-size: 9px; }
+        .obs-text {
+            width: 75%;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Asegura texto NEGRO en el cuadro de observaciones */
+        .obs-text textarea {
+            width: 100%;
+            flex-grow: 1;
+            min-height: 80px;
+            border: 1px solid #000;
+            resize: none;
+            font-family: 'Courier New', Courier, monospace;
+            padding: 4px;
+            font-weight: bold;
+            font-size: 10px;
+            color: #000000 !important;
+            -webkit-text-fill-color: #000000 !important;
+        }
+
+        /* Tiempos y Firmas */
+        .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 8px; }
+        .footer-signatures {
+            margin-top: 15px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        .sig-field {
+            display: flex;
+            margin-bottom: 6px;
+            align-items: flex-end;
+        }
+        .sig-field label { font-weight: bold; white-space: nowrap; font-size: 9px; }
+        .doc-code {
+            position: absolute;
+            bottom: 4px;
+            right: 8px;
+            font-size: 8px;
+            font-weight: bold;
+            font-family: Arial, sans-serif;
+        }
+
+        .btn-capture {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #002060;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            font-size: 13px;
+            font-weight: bold;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: background 0.2s;
+            font-family: Arial, sans-serif;
+        }
+        .btn-capture:hover { background-color: #001133; }
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+
+&lt;datalist id=&quot;lista-equipos&quot;&gt;
+    &lt;option value=&quot;GPU&quot;&gt;
+    &lt;option value=&quot;XTC&quot;&gt;
+    &lt;option value=&quot;TTC&quot;&gt;
+    &lt;option value=&quot;RE&quot;&gt;
+    &lt;option value=&quot;CBL&quot;&gt;
+    &lt;option value=&quot;XQC&quot;&gt;
+&lt;/datalist&gt;
+
+&lt;datalist id=&quot;lista-economicos&quot;&gt;
+    &lt;option value=&quot;301&quot;&gt;
+    &lt;option value=&quot;114&quot;&gt;
+    &lt;option value=&quot;701&quot;&gt;
+    &lt;option value=&quot;275&quot;&gt;
+&lt;/datalist&gt;
+
+&lt;datalist id=&quot;lista-operadores&quot;&gt;
+    &lt;option value=&quot;AGUILAR DE LA TORRE JORGE&quot;&gt;
+    &lt;option value=&quot;GALLEGOS MONSIVAIS CAMILO&quot;&gt;
+    &lt;option value=&quot;GALVAN MURO LUIS GUILLERMO&quot;&gt;
+    &lt;option value=&quot;NINO MARTINEZ JUAN MANUEL&quot;&gt;
+    &lt;option value=&quot;PINA MORENO AGUSTIN&quot;&gt;
+    &lt;option value=&quot;ROJAS CHAVARRIA MIGUEL ANGEL&quot;&gt;
+    &lt;option value=&quot;VALENZUELA MARTINEZ JOEL IVAN&quot;&gt;
+    &lt;option value=&quot;ZAPATA GARCIA ARATH&quot;&gt;
+&lt;/datalist&gt;
+
+
+&lt;div class=&quot;form-container&quot; id=&quot;manifiesto-form&quot;&gt;
+    &lt;div class=&quot;header&quot;&gt;
+        &lt;div class=&quot;logo&quot;&gt;? AEROMEXICO&lt;/div&gt;
+        &lt;div class=&quot;title&quot;&gt;&quot;CONTROL DE VUELOS ATENDIDOS&quot;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;row&quot; style=&quot;padding: 0 10px;&quot;&gt;
+        &lt;div class=&quot;field&quot; style=&quot;width: 40%;&quot;&gt;
+            &lt;label&gt;VUELO:&lt;/label&gt;
+            &lt;input type=&quot;text&quot; style=&quot;width: 60%;&quot;&gt;
+            &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; LL&lt;/span&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;field&quot; style=&quot;width: 40%; justify-content: flex-end;&quot;&gt;
+            &lt;label&gt;VUELO:&lt;/label&gt;
+            &lt;input type=&quot;text&quot; style=&quot;width: 60%;&quot;&gt;
+            &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SAL&lt;/span&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;section-title&quot;&gt;REGISTRO DE EQUIPOS DE APOYO&lt;/div&gt;
+    &lt;table&gt;
+        &lt;thead&gt;
+            &lt;tr&gt;
+                &lt;th style=&quot;width: 15%;&quot;&gt;EQUIPO&lt;/th&gt;
+                &lt;th style=&quot;width: 15%;&quot;&gt;NO. ECONOMICO&lt;/th&gt;
+                &lt;th style=&quot;width: 30%;&quot;&gt;NOMBRE DEL OPERADOR&lt;/th&gt;
+                &lt;th style=&quot;width: 12%;&quot;&gt;HORA: LLEGADA&lt;/th&gt;
+                &lt;th style=&quot;width: 12%;&quot;&gt;HORA: SALIDA&lt;/th&gt;
+                &lt;th style=&quot;width: 16%;&quot;&gt;OBSERVACIONES&lt;/th&gt;
+            &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+            &lt;tr&gt;&lt;td&gt;&lt;input type=&quot;text&quot; list=&quot;lista-equipos&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot; list=&quot;lista-economicos&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot; list=&quot;lista-operadores&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;time&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;time&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td&gt;&lt;input type=&quot;text&quot; list=&quot;lista-equipos&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot; list=&quot;lista-economicos&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot; list=&quot;lista-operadores&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;time&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;time&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td&gt;&lt;input type=&quot;text&quot; list=&quot;lista-equipos&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot; list=&quot;lista-economicos&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot; list=&quot;lista-operadores&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;time&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;time&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td&gt;&lt;input type=&quot;text&quot; list=&quot;lista-equipos&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot; list=&quot;lista-economicos&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot; list=&quot;lista-operadores&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;time&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;time&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td&gt;&lt;input type=&quot;text&quot; list=&quot;lista-equipos&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot; list=&quot;lista-economicos&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot; list=&quot;lista-operadores&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;time&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;time&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+            &lt;tr&gt;&lt;td&gt;&lt;input type=&quot;text&quot; list=&quot;lista-equipos&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot; list=&quot;lista-economicos&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot; list=&quot;lista-operadores&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;time&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;time&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+        &lt;/tbody&gt;
+    &lt;/table&gt;
+
+
+    &lt;div class=&quot;cancelled-section&quot;&gt;
+
+        &lt;svg class=&quot;cancelled-overlay&quot;&gt;
+            &lt;line x1=&quot;0&quot; y1=&quot;0&quot; x2=&quot;100%&quot; y2=&quot;100%&quot; stroke=&quot;#000000&quot; stroke-width=&quot;3.5&quot; /&gt;
+            &lt;line x1=&quot;100%&quot; y1=&quot;0&quot; x2=&quot;0&quot; y2=&quot;100%&quot; stroke=&quot;#000000&quot; stroke-width=&quot;3.5&quot; /&gt;
+        &lt;/svg&gt;
+
+        &lt;div class=&quot;section-title&quot;&gt;REGISTRO DE CARGA&lt;/div&gt;
+        &lt;table style=&quot;border: 2px solid #000;&quot;&gt;
+            &lt;tbody&gt;
+                &lt;tr&gt;
+                    &lt;td style=&quot;width: 25%;&quot;&gt;CARGA: &lt;span style=&quot;float:right&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; NO&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+                    &lt;td style=&quot;width: 37.5%;&quot;&gt;COMP. DELANTERO No.PZAS: &lt;input type=&quot;text&quot; style=&quot;width: 40px;&quot;&gt;&lt;/td&gt;
+                    &lt;td style=&quot;width: 37.5%;&quot;&gt;COMP. TRASERO No.PZAS: &lt;input type=&quot;text&quot; style=&quot;width: 40px;&quot;&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;CORREO: &lt;span style=&quot;float:right&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; NO&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+                    &lt;td&gt;COMP. DELANTERO No.PZAS: &lt;input type=&quot;text&quot; style=&quot;width: 40px;&quot;&gt;&lt;/td&gt;
+                    &lt;td&gt;COMP. TRASERO No.PZAS: &lt;input type=&quot;text&quot; style=&quot;width: 40px;&quot;&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;VALORES: &lt;span style=&quot;float:right&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; NO&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+                    &lt;td&gt;GUIA: &lt;input type=&quot;text&quot; style=&quot;width: 70%;&quot;&gt;&lt;/td&gt;
+                    &lt;td&gt;PIEZAS: &lt;input type=&quot;text&quot; style=&quot;width: 70%;&quot;&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;VALORES: &lt;span style=&quot;float:right&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; NO&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+                    &lt;td&gt;GUIA: &lt;input type=&quot;text&quot; style=&quot;width: 70%;&quot;&gt;&lt;/td&gt;
+                    &lt;td&gt;PIEZAS: &lt;input type=&quot;text&quot; style=&quot;width: 70%;&quot;&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;BOLSA LONA: &lt;span style=&quot;float:right&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; NO&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+                    &lt;td&gt;No. PRECINTO: &lt;input type=&quot;text&quot; style=&quot;width: 60%;&quot;&gt;&lt;/td&gt;
+                    &lt;td&gt;No. BOLSA LONA: &lt;input type=&quot;text&quot; style=&quot;width: 60%;&quot;&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;BOLSA LONA: &lt;span style=&quot;float:right&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; NO&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+                    &lt;td&gt;No. PRECINTO: &lt;input type=&quot;text&quot; style=&quot;width: 60%;&quot;&gt;&lt;/td&gt;
+                    &lt;td&gt;No. BOLSA LONA: &lt;input type=&quot;text&quot; style=&quot;width: 60%;&quot;&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;BOLSA DE MALLA: &lt;span style=&quot;float:right&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; NO&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+                    &lt;td&gt;No. PRECINTO: &lt;input type=&quot;text&quot; style=&quot;width: 60%;&quot;&gt;&lt;/td&gt;
+                    &lt;td&gt;No. PRECINTO: &lt;input type=&quot;text&quot; style=&quot;width: 60%;&quot;&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;BOLSA DE MALLA: &lt;span style=&quot;float:right&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; NO&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+                    &lt;td&gt;No. PRECINTO: &lt;input type=&quot;text&quot; style=&quot;width: 60%;&quot;&gt;&lt;/td&gt;
+                    &lt;td&gt;No. PRECINTO: &lt;input type=&quot;text&quot; style=&quot;width: 60%;&quot;&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+                &lt;tr&gt;
+                    &lt;td&gt;DOCUMENTOS: &lt;span style=&quot;float:right&quot;&gt;&lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; NO&lt;/span&gt;&lt;/span&gt;&lt;/td&gt;
+                    &lt;td colspan=&quot;2&quot;&gt;OBSERVACIONES: &lt;input type=&quot;text&quot; style=&quot;width: 80%;&quot;&gt;&lt;/td&gt;
+                &lt;/tr&gt;
+            &lt;/tbody&gt;
+        &lt;/table&gt;
+
+        &lt;div class=&quot;section-title&quot;&gt;REGISTRO DE EQUIPOS DE CARGA&lt;/div&gt;
+        &lt;table style=&quot;border: 2px solid #000;&quot;&gt;
+            &lt;thead&gt;
+                &lt;tr class=&quot;bg-grey&quot;&gt;
+                    &lt;th style=&quot;width: 14%;&quot;&gt;EQUIPO&lt;/th&gt;
+                    &lt;th style=&quot;width: 14%;&quot;&gt;PRECINTO/&lt;br&gt;EMPLAYE&lt;/th&gt;
+                    &lt;th style=&quot;width: 8%;&quot;&gt;PIEZAS&lt;/th&gt;
+                    &lt;th style=&quot;width: 12%;&quot;&gt;TRACTOR&lt;br&gt;/ VAN&lt;/th&gt;
+                    &lt;th style=&quot;width: 20%;&quot;&gt;NOMBRE OO&lt;/th&gt;
+                    &lt;th style=&quot;width: 12%;&quot;&gt;HORA DE LLEGADA&lt;br&gt;Y/O ARRASTRE&lt;/th&gt;
+                    &lt;th style=&quot;width: 20%;&quot;&gt;OBSERVACIONES&lt;/th&gt;
+                &lt;/tr&gt;
+            &lt;/thead&gt;
+            &lt;tbody&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;input type=&quot;text&quot; list=&quot;lista-equipos&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;time&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;input type=&quot;text&quot; list=&quot;lista-equipos&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;time&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;input type=&quot;text&quot; list=&quot;lista-equipos&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;time&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;input type=&quot;text&quot; list=&quot;lista-equipos&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;time&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;input type=&quot;text&quot; list=&quot;lista-equipos&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;time&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+            &lt;/tbody&gt;
+        &lt;/table&gt;
+
+        &lt;div class=&quot;section-title&quot;&gt;INCIDENCIAS DE CARGA&lt;/div&gt;
+        &lt;table style=&quot;border: 2px solid #000;&quot;&gt;
+            &lt;thead&gt;
+                &lt;tr class=&quot;bg-grey&quot;&gt;
+                    &lt;th style=&quot;width: 20%;&quot;&gt;GUIA&lt;/th&gt;
+                    &lt;th style=&quot;width: 15%;&quot;&gt;PIEZAS&lt;/th&gt;
+                    &lt;th style=&quot;width: 30%;&quot;&gt;No. REPORTE IRREGULARIDADES&lt;/th&gt;
+                    &lt;th style=&quot;width: 35%;&quot;&gt;OBSERVACIONES&lt;/th&gt;
+                &lt;/tr&gt;
+            &lt;/thead&gt;
+            &lt;tbody&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+            &lt;/tbody&gt;
+        &lt;/table&gt;
+
+        &lt;div class=&quot;section-title&quot;&gt;CARGA DE REZAGO&lt;/div&gt;
+        &lt;table style=&quot;border: 2px solid #000; margin-bottom: 0;&quot;&gt;
+            &lt;thead&gt;
+                &lt;tr class=&quot;bg-grey&quot;&gt;
+                    &lt;th style=&quot;width: 20%;&quot;&gt;GUIA&lt;/th&gt;
+                    &lt;th style=&quot;width: 15%;&quot;&gt;No. PIEZAS&lt;/th&gt;
+                    &lt;th style=&quot;width: 15%;&quot;&gt;EQUIPO&lt;/th&gt;
+                    &lt;th style=&quot;width: 15%;&quot;&gt;PRECINTO/&lt;br&gt;EMPLAYE&lt;/th&gt;
+                    &lt;th style=&quot;width: 35%;&quot;&gt;OBSERVACIONES&lt;/th&gt;
+                &lt;/tr&gt;
+            &lt;/thead&gt;
+            &lt;tbody&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot; list=&quot;lista-equipos&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+                &lt;tr&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot; list=&quot;lista-equipos&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;td&gt;&lt;input type=&quot;text&quot;&gt;&lt;/td&gt;&lt;/tr&gt;
+            &lt;/tbody&gt;
+        &lt;/table&gt;
+
+    &lt;/div&gt;
+    &lt;div class=&quot;observaciones-container&quot;&gt;
+        &lt;div class=&quot;obs-column&quot;&gt;
+            &lt;div style=&quot;display: flex; gap: 30px;&quot;&gt;
+                &lt;div&gt;
+                    &lt;span style=&quot;font-weight: bold; font-family: Arial; display:block; margin-bottom: 5px;&quot;&gt;CD&lt;/span&gt;
+                    &lt;div class=&quot;obs-line&quot;&gt;&lt;span&gt;A&lt;/span&gt;&lt;input type=&quot;text&quot; class=&quot;auto-time&quot;&gt;&lt;/div&gt;
+                    &lt;div class=&quot;obs-line&quot;&gt;&lt;span&gt;I&lt;/span&gt;&lt;input type=&quot;text&quot; class=&quot;auto-time&quot;&gt;&lt;/div&gt;
+                    &lt;div class=&quot;obs-line&quot;&gt;&lt;span&gt;F&lt;/span&gt;&lt;input type=&quot;text&quot; class=&quot;auto-time&quot;&gt;&lt;/div&gt;
+                    &lt;div class=&quot;obs-line&quot;&gt;&lt;span&gt;C&lt;/span&gt;&lt;input type=&quot;text&quot; class=&quot;auto-time&quot;&gt;&lt;/div&gt;
+                &lt;/div&gt;
+                &lt;div&gt;
+                    &lt;span style=&quot;font-weight: bold; font-family: Arial; display:block; margin-bottom: 5px;&quot;&gt;CT&lt;/span&gt;
+                    &lt;div class=&quot;obs-line&quot;&gt;&lt;span&gt;A&lt;/span&gt;&lt;input type=&quot;text&quot; class=&quot;auto-time&quot;&gt;&lt;/div&gt;
+                    &lt;div class=&quot;obs-line&quot;&gt;&lt;span&gt;I&lt;/span&gt;&lt;input type=&quot;text&quot; class=&quot;auto-time&quot;&gt;&lt;/div&gt;
+                    &lt;div class=&quot;obs-line&quot;&gt;&lt;span&gt;F&lt;/span&gt;&lt;input type=&quot;text&quot; class=&quot;auto-time&quot;&gt;&lt;/div&gt;
+                    &lt;div class=&quot;obs-line&quot;&gt;&lt;span&gt;C&lt;/span&gt;&lt;input type=&quot;text&quot; class=&quot;auto-time&quot;&gt;&lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/div&gt;
+            &lt;div style=&quot;margin-top: 10px;&quot;&gt;
+                &lt;div class=&quot;obs-line&quot;&gt;&lt;label style=&quot;white-space:nowrap;&quot;&gt;CAMARA PORTATIL No:&lt;/label&gt; &lt;input type=&quot;text&quot;&gt;&lt;/div&gt;
+                &lt;div class=&quot;obs-line&quot; style=&quot;margin-top:5px;&quot;&gt;&lt;label&gt;OPERA:&lt;/label&gt; &lt;input type=&quot;text&quot;&gt;&lt;/div&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+
+        &lt;div class=&quot;obs-text&quot;&gt;
+            &lt;span style=&quot;font-weight: bold; font-family: Arial;&quot;&gt;OBSERVACIONES:&lt;/span&gt;
+            &lt;textarea placeholder=&quot;Escriba aqui los detalles...&quot;&gt; Numero de TGS:
+ No. de revisiones: 23
+ Se realizo revision de personal de Menzies sin novedad.&lt;/textarea&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;grid-4&quot; style=&quot;margin-top: 8px; border: 1px solid #000; padding: 5px;&quot;&gt;
+        &lt;div class=&quot;field&quot;&gt;&lt;span&gt;A ABRE&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;field&quot;&gt;&lt;span&gt;I INICIA&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;field&quot;&gt;&lt;span&gt;F FINALIZA&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt;&lt;/div&gt;
+        &lt;div class=&quot;field&quot;&gt;&lt;span&gt;C CIERRA&lt;/span&gt; &lt;span class=&quot;checkbox-box&quot;&gt;&lt;input type=&quot;checkbox&quot;&gt; SI&lt;/span&gt;&lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;footer-signatures&quot;&gt;
+        &lt;div&gt;
+            &lt;div class=&quot;sig-field&quot;&gt;&lt;label&gt;NOMBRE DEL GUARDIA:&lt;/label&gt;&lt;input type=&quot;text&quot;&gt;&lt;/div&gt;
+            &lt;div class=&quot;sig-field&quot;&gt;&lt;label&gt;NOMBRE DEL GUARDIA:&lt;/label&gt;&lt;input type=&quot;text&quot;&gt;&lt;/div&gt;
+            &lt;div class=&quot;sig-field&quot;&gt;&lt;label&gt;NOMBRE DEL SUPERVISOR:&lt;/label&gt;&lt;input type=&quot;text&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+            &lt;div class=&quot;sig-field&quot;&gt;&lt;label&gt;FIRMA:&lt;/label&gt;&lt;input type=&quot;text&quot;&gt;&lt;/div&gt;
+            &lt;div class=&quot;sig-field&quot;&gt;&lt;label&gt;FIRMA:&lt;/label&gt;&lt;input type=&quot;text&quot;&gt;&lt;/div&gt;
+            &lt;div class=&quot;sig-field&quot;&gt;&lt;label&gt;FIRMA:&lt;/label&gt;&lt;input type=&quot;text&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+    &lt;/div&gt;
+
+    &lt;div class=&quot;doc-code&quot;&gt;FISO-AM-001 B&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;button class=&quot;btn-capture&quot; id=&quot;download-btn&quot;&gt;?? Generar Imagen para Enviar&lt;/button&gt;
+
+&lt;script&gt;
+    // Auto-llenado de la hora actual al presionar (tanto tablas de tiempo como bloques CD y CT)
+    document.querySelectorAll('input[type=&quot;time&quot;], .auto-time').forEach(input =&gt; {
+        input.addEventListener('click', function () {
+            const ahora = new Date();
+            const horas = String(ahora.getHours()).padStart(2, '0');
+            const minutos = String(ahora.getMinutes()).padStart(2, '0');
+            this.value = `${horas}:${minutos}`;
+        });
+    });
+
+    // Captura y exportacion a imagen PNG
+    document.getElementById('download-btn').addEventListener('click', function () {
+        const formElement = document.getElementById('manifiesto-form');
+        const button = this;
+
+        button.textContent = &quot;? Generando...&quot;;
+        button.disabled = true;
+
+        html2canvas(formElement, {
+            scale: 2,
+            useCORS: true,
+            onclone: (clonedDoc) =&gt; {
+                // Sincronizar campos de texto, tiempos y areas de texto
+                const inputs = formElement.querySelectorAll('input[type=&quot;text&quot;], input[type=&quot;time&quot;], textarea');
+                const clonedInputs = clonedDoc.querySelectorAll('input[type=&quot;text&quot;], input[type=&quot;time&quot;], textarea');
+                inputs.forEach((input, index) =&gt; {
+                    if(clonedInputs[index]) {
+                        clonedInputs[index].value = input.value;
+                    }
+                });
+            }
+        }).then(canvas =&gt; {
+            const imgData = canvas.toDataURL('image/png');
+            const link = document.createElement('a');
+
+            const dateStr = new Date().toISOString().slice(0, 10);
+            link.download = `Control_Carga_Cancelado_${dateStr}.png`;
+
+            link.href = imgData;
+            link.click();
+
+            button.textContent = &quot;?? Generar Imagen para Enviar&quot;;
+            button.disabled = false;
+        }).catch(err =&gt; {
+            console.error(&quot;Error: &quot;, err);
+            button.textContent = &quot;?? Generar Imagen para Enviar&quot;;
+            button.disabled = false;
+        });
+    });
+&lt;/script&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;" width="1125" height="1376" left="0" top="0" selected="1" fp="1" lp="1"/></body></page></site>
